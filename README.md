@@ -1,46 +1,74 @@
-# Getting Started with Create React App
+# Project Social Network
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+In this project different tools are used to create an Social Network.
 
-## Available Scripts
+## Built With
 
-In the project directory, you can run:
+- [![React][react.js]][react-url]
+<!-- - [![SASS][sass.com]][sass-url] -->
+- [![Tailwind][tailwind.com]][tailwind-url] (Uninstalled, replaced by own CSS)
+- [![Netlify][netlify.com]][netlify-url]
 
-### `npm start`
+## Roadmap
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [x] Add ReadMe
+- [x] Create App
+- [x] Create Components
+- [x] Add Navigation with React Router Dom
+<!-- - [x] Create Context -->
+- [x] Handle Imgs Routes
+- [x] Validate forms and give feedback
+- [x] Add Styles
+- [x] Config Prettier and EsLint
+- [x] Use cloud database (Firebase)
+- [x] Deploy on Netlify
+- [ ] Deploy on GitHub Pages
+<!-- - [ ] Stock management -->
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Deploy
 
-### `npm test`
+<!-- DEMO: [Netlify Deploy][deploy-url] -->
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### 1. Clone the repo
 
-### `npm run build`
+```sh
+git clone https://github.com/IvanMCorrea/E-commerce
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### 2. Install NPM packages
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```sh
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### 3. Enter API-KEYS (.env)
 
-### `npm run eject`
+#### 4. Deploy
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```sh
+npm start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Author
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- **Ivan Correa**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Contact
 
-## Learn More
+[![linkedin][linkedin.com]][linkedin-url] - [https://www.linkedin.com/in/ivanmcorrea/](https://www.linkedin.com/in/ivanmcorrea/)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[![github][github.com]][github-url] - [https://github.com/IvanMCorrea/](https://github.com/IvanMCorrea/E-commerce)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+[react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[react-url]: https://reactjs.org/
+[tailwind.com]: https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
+[tailwind-url]: https://tailwindcss.com/
+[sass.com]: https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white
+[sass-url]: https://sass-lang.com/
+[netlify.com]: https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white
+[netlify-url]: https://www.netlify.com/
+[github.com]: https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white
+[github-url]: https://github.com/IvanMCorrea/
+[linkedin.com]: https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white
+[linkedin-url]: https://www.linkedin.com/in/ivanmcorrea/
+[deploy-url]: https://superlative-crisp-fce7b4.netlify.app/
