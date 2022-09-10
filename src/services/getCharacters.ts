@@ -1,4 +1,4 @@
-import "../services/db";
+import { exportDataToFirestore } from "../services/db";
 
 export const getCharacters = () => {
   let charUrl = "https://rickandmortyapi.com/api/character";
@@ -30,6 +30,7 @@ export const getAccounts = () => {
         let account = { username: name, password: pass, ...element };
         accountList = [...accountList, account];
       });
+      exportDataToFirestore(accountList);
     } catch (error) {
       console.error(error);
     }

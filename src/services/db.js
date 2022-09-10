@@ -1,7 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 import {
   getFirestore,
   getDocs,
@@ -39,6 +37,15 @@ export async function getUsers() {
   });
   return respuesta;
 }
+
+export async function login(user, pass) {
+  const docref = doc(appFirestore, "Users", user);
+  const docSnapshot = await getDoc(docref);
+  if (docSnapshot.userName === user.userName && docSnapshot.password === pass) {
+    return true;
+  } else false;
+}
+
 export async function getUser(itemId) {
   const docref = doc(appFirestore, "Users", itemId);
   const docSnapshot = await getDoc(docref);
@@ -57,8 +64,8 @@ export async function newUser(dataOrder) {
   const orderCreated = await addDoc(orderCollectionRef, dataOrderWithDate);
   return orderCreated;
 }
-export async function exportDataToFirestore() {
-  const users = [];
+export async function exportDataToFirestore(data) {
+  const users = data;
   const usersCollection = collection(appFirestore, "Users");
   users.forEach((item) => {
     const newDoc = doc(usersCollection);

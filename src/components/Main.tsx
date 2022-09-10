@@ -4,12 +4,11 @@ import "./Footer";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 import { getCharacters, getAccounts } from "../services/getCharacters";
+import { getUser } from "../services/db";
 const Main = () => {
   return (
     <>
       <NavBar />
-      <button onClick={getCharacters}>Get Characters</button>
-      <button onClick={getAccounts}>Get Accounts</button>
       <Footer />
     </>
   );

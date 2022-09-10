@@ -1,11 +1,10 @@
 # Project Social Network
 
-In this project different tools are used to create an Social Network.
+In this project different tools are used to create a Social Network.
 
 ## Built With
 
-- [![React][react.js]][react-url]
-<!-- - [![SASS][sass.com]][sass-url] -->
+- [![React][react.js]][react-url]<!-- - [![SASS][sass.com]][sass-url] -->
 - [![Tailwind][tailwind.com]][tailwind-url] (Uninstalled, replaced by own CSS)
 - [![Netlify][netlify.com]][netlify-url]
 
@@ -14,16 +13,14 @@ In this project different tools are used to create an Social Network.
 - [x] Add ReadMe
 - [x] Create App
 - [x] Create Components
-- [x] Add Navigation with React Router Dom
-<!-- - [x] Create Context -->
+- [x] Add Navigation with React Router Dom<!-- - [x] Create Context -->
 - [x] Handle Imgs Routes
 - [x] Validate forms and give feedback
 - [x] Add Styles
 - [x] Config Prettier and EsLint
 - [x] Use cloud database (Firebase)
 - [x] Deploy on Netlify
-- [ ] Deploy on GitHub Pages
-<!-- - [ ] Stock management -->
+- [ ] Deploy on GitHub Pages<!-- - [ ] Stock management -->
 
 ## Deploy
 
