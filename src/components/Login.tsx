@@ -1,23 +1,35 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { login, getUsers } from "../services/db";
 
 const Login = () => {
-  //ayuda en arcane main linea 210 || react hook form
-  const database = "usuarios.json";
+  let navigate = useNavigate();
   const { register, handleSubmit } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      let usuario = await fetch(database);
-      let response = await usuario.json();
-      console.log(response);
-      console.log(data);
+      await getUsers().then((res: any) => {
+        const index = res.findIndex(
+          (element: any) => element.username === data.user
+        );
+        if (index !== -1) {
+          const id = res[index].id;
+          login(id, data.user, data.password).then((res) => {
+            if (res) {
+              navigate("/home");
+            }
+          });
+          console.log("Login exitoso");
+        } else {
+          console.log("error en datos");
+        }
+      });
     } catch (error) {
       console.log(error);
     }
   };
   type FormValues = {
-    email: string;
+    user: string;
     password: string;
   };
   return (
@@ -47,20 +59,18 @@ const Login = () => {
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
-                <label htmlFor="email-address" className="sr-only">
-                  Email address
+                <label htmlFor="user" className="sr-only">
+                  User Name
                 </label>
                 <input
-                  id="email-address"
-                  type="email"
-                  autoComplete="email"
+                  id="user"
+                  type="text"
+                  autoComplete="user"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Email address"
-                  {...register("email", {
+                  placeholder="User name"
+                  {...register("user", {
                     required: true,
-                    pattern:
-                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                   })}
                 />
               </div>
@@ -104,7 +114,10 @@ const Login = () => {
               </div>
             </div>
             <div>
-              <button className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <button
+                type="submit"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
                 Ingresar
               </button>
             </div>

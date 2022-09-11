@@ -24,7 +24,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const appFirebase = initializeApp(firebaseConfig);
-const appFirestore = getFirestore(appFirebase);
+const appFirestore = getFirestore();
 
 export async function getUsers() {
   const prodsCollection = collection(appFirestore, "Users");
@@ -38,12 +38,13 @@ export async function getUsers() {
   return respuesta;
 }
 
-export async function login(user, pass) {
-  const docref = doc(appFirestore, "Users", user);
+export async function login(id, user, pass) {
+  const docref = doc(appFirestore, "Users", id);
   const docSnapshot = await getDoc(docref);
-  if (docSnapshot.userName === user.userName && docSnapshot.password === pass) {
+  const data = docSnapshot.data();
+  if (data.username === user && data.password === pass) {
     return true;
-  } else false;
+  } else return false;
 }
 
 export async function getUser(itemId) {
