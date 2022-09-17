@@ -1,13 +1,22 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
+import { getStorage } from "../services/storage";
+import { UserModel } from "../types";
 
 const NavBar = () => {
+  const [userProfile, setUserProfile] = useState<UserModel>();
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    const user = await getStorage();
+    setUserProfile(user);
+  };
   const navigation = [
-    { name: "Dashboard", href: "#", current: true },
-    { name: "Team", href: "#", current: false },
-    { name: "Projects", href: "#", current: false },
-    { name: "Calendar", href: "#", current: false },
+    { name: "Home", href: "/", current: true },
+    { name: "Friends?", href: "/network", current: false },
   ];
 
   function classNames(...classes: any[]) {
@@ -42,7 +51,7 @@ const NavBar = () => {
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
                       <Link
-                        to={""}
+                        to={item.href}
                         key={item.name}
                         className={classNames(
                           item.current
@@ -70,11 +79,13 @@ const NavBar = () => {
                   <div>
                     <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                      />
+                      {userProfile !== undefined ? (
+                        <img
+                          className="h-8 w-8 rounded-full"
+                          src={userProfile.image}
+                          alt=""
+                        />
+                      ) : null}
                     </Menu.Button>
                   </div>
                   <Transition
@@ -116,7 +127,7 @@ const NavBar = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to={""}
+                            to={"/login"}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"

@@ -1,18 +1,24 @@
 import React from "react";
-import "./components/Login";
-import "./components/Main";
 import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./components/Main";
 import Login from "./components/Login";
+import Body from "./components/Body";
+import Profile from "./components/Profile";
+import Network from "./components/Network";
+import { UserModel } from "./types";
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/home" element={<Main />}></Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Main />}>
+            <Route path="/" element={<Body />} />
+            <Route path="/network" element={<Network />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>

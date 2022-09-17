@@ -2,6 +2,7 @@ import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { login, getUsers } from "../services/db";
+import { setStorage } from "../services/storage";
 
 const Login = () => {
   let navigate = useNavigate();
@@ -14,9 +15,12 @@ const Login = () => {
         );
         if (index !== -1) {
           const id = res[index].id;
+          const user = res[index];
+          delete user.password;
           login(id, data.user, data.password).then((res) => {
             if (res) {
-              navigate("/home");
+              setStorage(user);
+              navigate("/");
             }
           });
           console.log("Login exitoso");
