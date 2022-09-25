@@ -3,7 +3,7 @@ import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./components/Main";
 import Login from "./components/Login";
-import Body from "./components/Body";
+import Publications from "./components/Publications";
 import Profile from "./components/Profile";
 import Network from "./components/Network";
 import { UserModel } from "./types";
@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Main />}>
-            <Route path="/" element={<Body />} />
+            <Route path="/" element={<Publications />} />
             <Route path="/network" element={<Network />} />
             <Route path="/profile" element={<Profile />} />
           </Route>

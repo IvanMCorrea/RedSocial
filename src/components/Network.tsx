@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { NetworkModel } from "../types";
 import { getUsers } from "../services/db";
+import Pagination from "./Pagination";
 
 const Network = () => {
+  let [pageNumber, updatePageNumber] = useState(1);
   const [network, setNetwork] = useState<Array<NetworkModel>>([]);
   useEffect(() => {
     getNetwork();
@@ -14,6 +16,7 @@ const Network = () => {
   return (
     <>
       <section className="grid sm:grid-cols-3 lg:grid-cols-4">
+        {/* Separar cards en un componente nuevo. Probar mapeo de a 30 elementos con un for*/}
         {network !== undefined
           ? network.map((user) => {
               return (
@@ -38,6 +41,7 @@ const Network = () => {
               );
             })
           : null}
+          <Pagination pageNumber={pageNumber} info="" updatePageNumber={updatePageNumber} />
       </section>
     </>
   );
