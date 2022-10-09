@@ -4,8 +4,8 @@ import {
   getFirestore,
   getDocs,
   getDoc,
-  /* query,
-  where, */
+  query,
+  where,
   doc,
   collection,
   setDoc,
@@ -28,6 +28,20 @@ const appFirestore = getFirestore();
 
 export async function getUsers() {
   const prodsCollection = collection(appFirestore, "Users");
+  const prodsSnapshot = await getDocs(prodsCollection);
+  let respuesta = prodsSnapshot.docs.map((doc) => {
+    return {
+      ...doc.data(),
+      id: doc.id,
+    };
+  });
+  return respuesta;
+}
+export async function getNetwork(username) {
+  const prodsCollection = query(
+    collection(appFirestore, "Users"),
+    where("username", "!=", username)
+  );
   const prodsSnapshot = await getDocs(prodsCollection);
   let respuesta = prodsSnapshot.docs.map((doc) => {
     return {

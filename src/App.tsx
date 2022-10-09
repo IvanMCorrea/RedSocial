@@ -6,7 +6,6 @@ import Login from "./components/Login";
 import Publications from "./components/Publications";
 import Profile from "./components/Profile";
 import Network from "./components/Network";
-import { UserModel } from "./types";
 
 function App() {
   return (

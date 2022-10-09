@@ -1,48 +1,63 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { NetworkModel } from "../types";
-import { getUsers } from "../services/db";
+import { getNetwork } from "../services/db";
 import Pagination from "./Pagination";
+import ProfileCard from "./ProfileCard";
+import Buscador from "./Buscador";
+import { getStorage } from "../services/storage";
 
 const Network = () => {
-  let [pageNumber, updatePageNumber] = useState(1);
+  let pageSize = 20;
+  const [loading, setLoading] = useState(false);
+  const [pageNumber, updatePageNumber] = useState(1);
+  const [filteredNetwork, setFilteredNetwork] = useState<Array<NetworkModel>>(
+    []
+  );
   const [network, setNetwork] = useState<Array<NetworkModel>>([]);
   useEffect(() => {
-    getNetwork();
+    setLoading(true);
+    getUserNetwork();
   }, []);
-  const getNetwork = async () => {
-    const users = await getUsers();
-    setNetwork(users);
+  const currentData = useMemo(() => {
+    const firstPageIndex = (pageNumber - 1) * pageSize;
+    const lastPageIndex = firstPageIndex + pageSize;
+    return filteredNetwork.slice(firstPageIndex, lastPageIndex);
+  }, [pageNumber, filteredNetwork]);
+  const getUserNetwork = async () => {
+    let user = getStorage();
+    let username = user.username;
+    const userNetwork = await getNetwork(username);
+    setNetwork(userNetwork);
+    setFilteredNetwork(userNetwork);
+    setLoading(false);
   };
   return (
     <>
-      <section className="grid sm:grid-cols-3 lg:grid-cols-4">
-        {/* Separar cards en un componente nuevo. Probar mapeo de a 30 elementos con un for*/}
-        {network !== undefined
-          ? network.map((user) => {
-              return (
-                <article
-                  key={user.id}
-                  className="text-center flex flex-col items-center mx-auto border rounded-3xl mt-6 overflow-hidden font-semibold"
-                >
-                  <p className="py-3">{user.name}</p>
-                  <img src={user.image} alt={user.name} />
-                  {user.status === "Alive" ? (
-                    <div className="py-3 w-full bg-lime-400">{user.status}</div>
-                  ) : user.status === "Dead" ? (
-                    <div className="py-3 w-full bg-red-700 text-white">
-                      {user.status}
-                    </div>
-                  ) : (
-                    <div className="py-3 w-full bg-purple-800 text-white">
-                      {user.status}
-                    </div>
-                  )}
-                </article>
-              );
-            })
-          : null}
-          <Pagination pageNumber={pageNumber} info="" updatePageNumber={updatePageNumber} />
-      </section>
+      {loading ? (
+        <img src="portal.png" alt="portal" className="rotate scalate" />
+      ) : (
+        <>
+          <Buscador
+            parametro="user"
+            setBuscador={setFilteredNetwork}
+            data={network}
+          />
+          <section className="grid sm:grid-cols-3 lg:grid-cols-4">
+            {/* Separar cards en un componente nuevo. Probar mapeo de a 30 elementos con un for*/}
+            {currentData !== undefined
+              ? currentData.map((user) => {
+                  return <ProfileCard user={user} key={user.id} />;
+                })
+              : null}
+          </section>
+          <Pagination
+            pageNumber={pageNumber}
+            totalCount={filteredNetwork.length}
+            updatePageNumber={updatePageNumber}
+            pageSize={pageSize}
+          />
+        </>
+      )}
     </>
   );
 };
