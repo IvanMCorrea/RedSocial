@@ -39,9 +39,13 @@ const Buscador = ({ parametro, setBuscador, data }: any) => {
     };
   }, [parametro, update, location]);
   return (
-    <div className="flex rounded-md my-5 justify-center">
+    <div className="flex my-5 justify-center">
       <form onChange={handleChange}>
-        <input type="text" placeholder="Ingresa tu búsqueda" />
+        <input
+          className=" rounded-2xl"
+          type="text"
+          placeholder="Ingresa tu búsqueda"
+        />
       </form>
     </div>
   );

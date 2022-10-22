@@ -34,18 +34,15 @@ const NavBar = () => {
                   <span className="sr-only">Open main menu</span>
                 </Disclosure.Button>
               </div>
-              <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex-shrink-0 flex items-center">
-                  <img
-                    className="block lg:hidden h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=500"
-                    alt="Workflow"
-                  />
-                  <img
-                    className="hidden lg:block h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=500"
-                    alt="Workflow"
-                  />
+              <div className="flex-1 flex items-center justify-center sm:justify-start">
+                <div className="flex items-center">
+                  <Link to={"/"}>
+                    <img
+                      className="block h-20 w-auto mt-8 ease-in duration-150 hover:h-24"
+                      src="assets/logo.png"
+                      alt="Workflow"
+                    />
+                  </Link>
                 </div>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
@@ -77,7 +74,7 @@ const NavBar = () => {
                 {/* Profile dropdown */}
                 <Menu as="div" className="ml-3 relative">
                   <div>
-                    <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                    <Menu.Button className="bg-gray-800 flex text-sm rounded-full">
                       <span className="sr-only">Open user menu</span>
                       {userProfile !== undefined ? (
                         <img
@@ -101,7 +98,7 @@ const NavBar = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to={""}
+                            to={"/profile"}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
