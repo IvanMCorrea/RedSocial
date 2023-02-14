@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import Main from "./components/Main";
 import Login from "./components/Login";
 import Publications from "./components/Publications";
@@ -10,7 +10,7 @@ import Network from "./components/Network";
 function App() {
   return (
     <div>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Main />}>
@@ -19,7 +19,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
