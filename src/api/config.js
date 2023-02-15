@@ -1,8 +1,7 @@
 import axios from "axios";
-import env from "../env";
 
 const backendApi = axios.create({
-  baseURL: env.API_URL,
+  baseURL: process.env.REACT_APP_API_URL,
 });
 
 backendApi.interceptors.request.use((config) => {
@@ -12,3 +11,5 @@ backendApi.interceptors.request.use((config) => {
   };
   return config;
 });
+
+export default backendApi;
