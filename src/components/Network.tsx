@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { NetworkModel } from "../types";
+import { UserModel } from "../types";
 import { getNetwork } from "../services/db";
 import Pagination from "./Pagination";
 import ProfileCard from "./ProfileCard";
@@ -10,27 +10,25 @@ const Network = () => {
   let pageSize = 20;
   const [loading, setLoading] = useState(false);
   const [pageNumber, updatePageNumber] = useState(1);
-  const [filteredNetwork, setFilteredNetwork] = useState<Array<NetworkModel>>(
-    []
-  );
-  const [network, setNetwork] = useState<Array<NetworkModel>>([]);
+  const [filteredNetwork, setFilteredNetwork] = useState<Array<UserModel>>([]);
+  const [network, setNetwork] = useState<Array<UserModel>>([]);
   useEffect(() => {
     setLoading(true);
-    getUserNetwork();
+    /* getUserNetwork(); */
   }, []);
   const currentData = useMemo(() => {
     const firstPageIndex = (pageNumber - 1) * pageSize;
     const lastPageIndex = firstPageIndex + pageSize;
     return filteredNetwork.slice(firstPageIndex, lastPageIndex);
   }, [pageNumber, filteredNetwork]);
-  const getUserNetwork = async () => {
+  /* const getUserNetwork = async () => {
     let user = getStorage();
     let username = user.username;
     const userNetwork = await getNetwork(username);
     setNetwork(userNetwork);
     setFilteredNetwork(userNetwork);
     setLoading(false);
-  };
+  }; */
   return (
     <>
       {loading ? (
