@@ -1,43 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React from "react";
 
-const Buscador = ({ parametro, setBuscador, data }: any) => {
-  const [update, setUpdate] = useState("");
-  let location = useLocation();
+const Buscador = ({ keyword, setKeyword }: any) => {
   const handleChange = (e: any) => {
     e.preventDefault();
-    setUpdate(e.target.value);
+    setKeyword(e.target.value);
   };
 
-  useEffect(() => {
-    const filterSearch = (busqueda: any) => {
-      let resultadoFiltro = [];
-      if (parametro === "user") {
-        resultadoFiltro = data.filter((character: any) => {
-          if (
-            character.name
-              .toString()
-              .toLowerCase()
-              .includes(busqueda.toString().toLowerCase())
-          ) {
-            return character;
-          } else if (
-            character.username
-              .toString()
-              .toLowerCase()
-              .includes(busqueda.toString().toLowerCase())
-          ) {
-            return character;
-          }
-        });
-      }
-      setBuscador(resultadoFiltro);
-    };
-    filterSearch(update);
-    return () => {
-      setBuscador([]);
-    };
-  }, [parametro, update, location]);
   return (
     <div className="flex my-5 justify-center">
       <form onChange={handleChange}>
@@ -45,6 +13,7 @@ const Buscador = ({ parametro, setBuscador, data }: any) => {
           className=" rounded-2xl"
           type="text"
           placeholder="Ingresa tu búsqueda"
+          value={keyword}
         />
       </form>
     </div>

@@ -1,11 +1,11 @@
 export interface UserModel {
-  id: string;
+  _id: string;
   username: string;
   name?: string;
   image?: string;
   avatar: string;
   status?: string;
-  email: email;
+  email?: email;
   phone?: string;
   adress?: string;
   description?: string;

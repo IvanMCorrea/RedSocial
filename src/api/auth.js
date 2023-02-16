@@ -34,7 +34,7 @@ const getUserInfo = async () => {
   }
 };
 
-const getUsers = async ({ page, keyword }) => {
+const getUsers = async (page, keyword) => {
   try {
     const { data } = await backendApi.get(
       `/user/users/${page}`,

@@ -14,7 +14,7 @@ const Login = () => {
           (element: any) => element.username === data.user
         );
         if (index !== -1) {
-          const id = res[index].id;
+          const id = res[index]._id;
           const user = res[index];
           delete user.password;
           login(id, data.user, data.password).then((res) => {
