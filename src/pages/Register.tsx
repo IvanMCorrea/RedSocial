@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { startLogin } from "../api/auth";
+import { createNewUser, startLogin } from "../api/auth";
 import { useSnackbar } from "notistack";
 import routes from "../router/routes";
 
 const Register = () => {
   let navigate = useNavigate();
+  const [coverImage, setCoverImage] = useState<File | null>(null);
+  const [profileImage, setProfileImage] = useState<File | null>(null);
   const { enqueueSnackbar } = useSnackbar();
   const { register, handleSubmit } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      const res = await startLogin(data);
+      const res = await createNewUser(data);
       if (res.success) {
         enqueueSnackbar(res.message, { variant: "success" });
-        navigate(routes.home);
+        navigate(routes.login);
       } else {
         enqueueSnackbar(res.message, { variant: "error" });
       }
@@ -26,10 +28,16 @@ const Register = () => {
   type FormValues = {
     username: string;
     password: string;
+    avatar: any;
+    image: any;
+    name: string;
+    email: string;
+    address: string;
+    description: string;
   };
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+      <div className="max-w-2xl w-full space-y-8">
         <div>
           <img
             className="mx-auto h-28 w-auto"
@@ -37,84 +45,240 @@ const Register = () => {
             alt="Workflow"
           />
           <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-gray-900">
-            Already have an account?
+            Register
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
+            Already have an account?{" "}
             <Link
-              to={""}
+              to={routes.login}
               className="font-medium text-indigo-600 hover:text-indigo-500"
             >
-              Sign in to your account
+              Sign in
             </Link>
           </p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          <input type="hidden" name="remember" defaultValue="true" />
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="username" className="sr-only">
-                Username
-              </label>
-              <input
-                id="username"
-                type="text"
-                autoComplete="username"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Username"
-                {...register("username", {
-                  required: true,
-                })}
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                {...register("password")}
-              />
+        <div>
+          <div className="md:grid md:grid-cols-1 md:gap-6">
+            <div className="mt-5 md:col-span-2 md:mt-0">
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="shadow sm:overflow-hidden sm:rounded-md">
+                  <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
+                    <div className="grid grid-cols-3 gap-6">
+                      <div className="col-span-8">
+                        <label
+                          htmlFor="username"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Username
+                        </label>
+                        <input
+                          type="text"
+                          id="username"
+                          autoComplete="username"
+                          {...register("username", { required: true })}
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        />
+                      </div>
+
+                      <div className="col-span-8">
+                        <label
+                          htmlFor="password"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Password
+                        </label>
+                        <input
+                          type="password"
+                          id="password"
+                          autoComplete="password"
+                          {...register("password", { required: true })}
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        />
+                      </div>
+
+                      <div className="col-span-8">
+                        <label
+                          htmlFor="name"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Full Name
+                        </label>
+                        <input
+                          type="text"
+                          id="name"
+                          autoComplete="name"
+                          {...register("name")}
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        />
+                      </div>
+
+                      <div className="col-span-8">
+                        <label
+                          htmlFor="email"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Email address
+                        </label>
+                        <input
+                          type="text"
+                          id="email"
+                          autoComplete="email"
+                          {...register("email")}
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        />
+                      </div>
+
+                      <div className="col-span-8">
+                        <label
+                          htmlFor="street-address"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Address
+                        </label>
+                        <input
+                          type="text"
+                          {...register("address")}
+                          id="street-address"
+                          autoComplete="street-address"
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="about"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        About
+                      </label>
+                      <div className="mt-1">
+                        <textarea
+                          id="about"
+                          {...register("description")}
+                          rows={3}
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          placeholder="My description"
+                          defaultValue={""}
+                        />
+                      </div>
+                      <p className="mt-2 text-sm text-gray-500">
+                        Brief description for your profile.
+                      </p>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">
+                        Profile picture
+                      </label>
+                      <div className="mt-1 flex items-center">
+                        <div className="mt-1 flex justify-center rounded-md border-gray-300 pt-5 pb-6">
+                          <div className="space-y-1 text-center">
+                            <div className="flex items-center text-sm text-gray-600">
+                              <span className="h-20 w-20 overflow-hidden rounded-full bg-gray-100 mr-5">
+                                {profileImage ? (
+                                  <img
+                                    src={URL.createObjectURL(profileImage)}
+                                    alt="profile image"
+                                  />
+                                ) : (
+                                  <svg
+                                    className="h-full w-full text-gray-300"
+                                    fill="currentColor"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                  </svg>
+                                )}
+                              </span>
+                              <span className="text-indigo-600 font-medium ml-2 cursor-pointer">
+                                Upload a file
+                              </span>
+                              <input
+                                id="file-upload"
+                                {...register("avatar")}
+                                type="file"
+                                onChange={(evt) => {
+                                  evt.target.files &&
+                                    setProfileImage(evt.target.files[0]);
+                                }}
+                                className="sr-only"
+                              />
+                              <p className="ml-5 text-xs text-gray-500">
+                                PNG, JPG, GIF up to 10MB
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">
+                        Cover photo
+                      </label>
+                      {coverImage && (
+                        <img
+                          src={URL.createObjectURL(coverImage)}
+                          alt="cover image"
+                        />
+                      )}
+                      <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+                        <div className="space-y-1 text-center">
+                          <svg
+                            className="mx-auto h-12 w-12 text-gray-400"
+                            stroke="currentColor"
+                            fill="none"
+                            viewBox="0 0 48 48"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                              strokeWidth={2}
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                          <div className="flex text-sm text-gray-600">
+                            <label
+                              htmlFor="file-upload-image"
+                              className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none hover:text-indigo-500"
+                            >
+                              <span>Upload a file</span>
+                              <input
+                                id="file-upload-image"
+                                type="file"
+                                {...register("image")}
+                                onChange={(evt) => {
+                                  evt.target.files &&
+                                    setCoverImage(evt.target.files[0]);
+                                }}
+                                className="sr-only"
+                              />
+                            </label>
+                            <p className="pl-1">or drag and drop</p>
+                          </div>
+                          <p className="text-xs text-gray-500">
+                            PNG, JPG, GIF up to 10MB
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-gray-50 px-4 py-3 text-center sm:px-6">
+                    <button
+                      type="submit"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                      Register
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              />
-              <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-900"
-              >
-                Remember me
-              </label>
-            </div>
-            <div className="text-sm">
-              <Link
-                to={""}
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                Forgot your password?
-              </Link>
-            </div>
-          </div>
-          <div>
-            <button
-              type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Login
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   );
