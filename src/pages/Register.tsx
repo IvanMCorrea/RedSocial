@@ -5,7 +5,7 @@ import { startLogin } from "../api/auth";
 import { useSnackbar } from "notistack";
 import routes from "../router/routes";
 
-const Login = () => {
+const Register = () => {
   let navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const { register, handleSubmit } = useForm<FormValues>();
@@ -37,15 +37,14 @@ const Login = () => {
             alt="Workflow"
           />
           <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-gray-900">
-            Sign in to your account
+            Already have an account?
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Or{" "}
             <Link
-              to={routes.register}
+              to={""}
               className="font-medium text-indigo-600 hover:text-indigo-500"
             >
-              create new account
+              Sign in to your account
             </Link>
           </p>
         </div>
@@ -121,4 +120,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

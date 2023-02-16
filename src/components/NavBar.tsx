@@ -1,17 +1,19 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { useSnackbar } from "notistack";
 import { Link } from "react-router-dom";
-import { getStorage } from "../services/storage";
 import { UserModel } from "../types";
+import { getUserInfo } from "../api/auth";
 
 const NavBar = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const [userProfile, setUserProfile] = useState<UserModel>();
   useEffect(() => {
     getUser();
   }, []);
 
   const getUser = async () => {
-    const user = await getStorage();
+    const user = await getUserInfo();
     setUserProfile(user);
   };
   const navigation = [
