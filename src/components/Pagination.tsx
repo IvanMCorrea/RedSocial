@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 
-const Pagination = ({
-  pageNumber,
-  updatePageNumber,
-  totalCount,
-  pageSize,
-}: any) => {
-  let pages = 1;
-  if (totalCount > pageSize) {
-    pages = Math.ceil(totalCount / pageSize);
-  }
+const Pagination = ({ pageNumber, updatePageNumber, totalPages }: any) => {
   const [width, setWidth] = useState(window.innerWidth);
   const updateDimensions = () => {
     setWidth(window.innerWidth);
@@ -68,7 +59,7 @@ const Pagination = ({
         forcePage={pageNumber === 1 ? 0 : pageNumber - 1}
         marginPagesDisplayed={width < 576 ? 1 : 2}
         pageRangeDisplayed={width < 576 ? 1 : 2}
-        pageCount={pages}
+        pageCount={totalPages}
         onPageChange={pageChange}
       />
     </>

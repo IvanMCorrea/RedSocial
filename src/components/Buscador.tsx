@@ -1,19 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Buscador = ({ keyword, setKeyword }: any) => {
-  const handleChange = (e: any) => {
-    e.preventDefault();
-    setKeyword(e.target.value);
+  const [input, setInput] = useState(keyword);
+  const handleInput = (e: any) => {
+    setInput(e.target.value);
   };
-
+  const onBlur = () => {
+    setKeyword(input);
+  };
   return (
     <div className="flex my-5 justify-center">
-      <form onChange={handleChange}>
+      <form>
         <input
           className=" rounded-2xl"
           type="text"
           placeholder="Ingresa tu búsqueda"
-          value={keyword}
+          value={input}
+          onChange={handleInput}
+          onBlur={onBlur}
         />
       </form>
     </div>

@@ -12,25 +12,19 @@ const Network = () => {
   const [keyword, setKeyword] = useState("");
   const [loading, setLoading] = useState(false);
   const [pageNumber, updatePageNumber] = useState(1);
-  const [filteredNetwork, setFilteredNetwork] = useState<Array<UserModel>>([]);
+  const [totalPages, setTotalPages] = useState(1);
   const [network, setNetwork] = useState<Array<UserModel>>([]);
   useEffect(() => {
     setLoading(true);
     getUserNetwork();
-  }, []);
-  const currentData = useMemo(() => {
-    const firstPageIndex = (pageNumber - 1) * pageSize;
-    const lastPageIndex = firstPageIndex + pageSize;
-    return filteredNetwork.slice(firstPageIndex, lastPageIndex);
-  }, [pageNumber, filteredNetwork]);
+  }, [pageNumber, keyword]);
   const getUserNetwork = async () => {
-    const users = await getUsers(pageNumber, keyword);
-    console.log(users);
-    /* let user = getStorage();
-    let username = user.username;
-    const userNetwork = await getNetwork(username);
-    setNetwork(userNetwork);
-    setFilteredNetwork(userNetwork);*/
+    const res = await getUsers(pageNumber, keyword);
+    console.log(res);
+    if (res.success) {
+      setNetwork(res.data);
+      setTotalPages(res.totalPages);
+    }
     setLoading(false);
   };
   return (
@@ -41,18 +35,16 @@ const Network = () => {
         <>
           <Buscador keyword={keyword} setKeyword={setKeyword} />
           <section className="grid sm:grid-cols-3 lg:grid-cols-4">
-            {/* Separar cards en un componente nuevo. Probar mapeo de a 30 elementos con un for*/}
-            {currentData !== undefined
-              ? currentData.map((user) => {
+            {network !== undefined
+              ? network.map((user) => {
                   return <ProfileCard user={user} key={user._id} />;
                 })
               : null}
           </section>
           <Pagination
             pageNumber={pageNumber}
-            totalCount={filteredNetwork.length}
+            totalPages={totalPages}
             updatePageNumber={updatePageNumber}
-            pageSize={pageSize}
           />
         </>
       )}
