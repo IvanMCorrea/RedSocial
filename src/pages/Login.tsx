@@ -13,10 +13,10 @@ const Login = () => {
     try {
       const res = await startLogin(data);
       if (res.success) {
-        enqueueSnackbar(res.message, { variant: "success" });
+        enqueueSnackbar(res.msg, { variant: "success" });
         navigate(routes.home);
       } else {
-        enqueueSnackbar(res.message, { variant: "error" });
+        enqueueSnackbar(res.msg, { variant: "error" });
       }
     } catch (error) {
       console.log(error);

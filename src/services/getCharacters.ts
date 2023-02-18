@@ -30,12 +30,17 @@ export const getAllCharacters = async () => {
         const formData = new FormData();
         let name = element.name.replace(/ /g, "");
         let pass = name;
+        let address =
+          element.location && element.location.name
+            ? element.location.name
+            : "unknown";
         let email = `${name}Account@mail.com`;
         avatar = element.image ? element.image : null;
         let account = {
           username: name,
           password: pass,
           email: email,
+          address: address,
           ...element,
         };
         for (const key in account) {

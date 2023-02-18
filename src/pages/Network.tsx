@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { UserModel } from "../types";
 import { getNetwork } from "../services/db";
-import Pagination from "./Pagination";
-import ProfileCard from "./ProfileCard";
-import Buscador from "./Buscador";
+import Pagination from "../components/Pagination";
+import ProfileCard from "../components/ProfileCard";
+import Buscador from "../components/Buscador";
 import { getStorage } from "../services/storage";
 import { getUsers } from "../api/auth";
 

@@ -1,11 +1,11 @@
 import React from "react";
 import { Routes, Route, HashRouter } from "react-router-dom";
 import routes from "./routes";
-import Main from "../components/Main";
-import Login from "../components/Login";
+import Main from "../layout/Main";
+import Login from "../pages/Login";
 import Publications from "../components/Publications";
-import Profile from "../components/Profile";
-import Network from "../components/Network";
+import Profile from "../pages/Profile";
+import Network from "../pages/Network";
 import Register from "../pages/Register";
 
 function AppRouter() {

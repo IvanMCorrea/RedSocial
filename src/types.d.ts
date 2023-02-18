@@ -7,6 +7,6 @@ export interface UserModel {
   status?: string;
   email?: email;
   phone?: string;
-  adress?: string;
+  address?: string;
   description?: string;
 }
