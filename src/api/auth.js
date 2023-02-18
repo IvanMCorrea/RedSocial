@@ -16,7 +16,7 @@ const startLogin = async ({ username, password }) => {
 
 const createNewUser = async (payload) => {
   try {
-    const { data } = await backendApi.post("/user/register", { data: payload });
+    const { data } = await backendApi.post("/user/register", payload);
     return data;
   } catch (error) {
     const res = error.response.data;

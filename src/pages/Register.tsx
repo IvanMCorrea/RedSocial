@@ -4,21 +4,32 @@ import { Link, useNavigate } from "react-router-dom";
 import { createNewUser, startLogin } from "../api/auth";
 import { useSnackbar } from "notistack";
 import routes from "../router/routes";
+import { getAllCharacters } from "../services/getCharacters";
 
 const Register = () => {
   let navigate = useNavigate();
-  const [coverImage, setCoverImage] = useState<File | null>(null);
-  const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [coverImage, setCoverImage] = useState<Blob | File | null>(null);
+  const [profileImage, setProfileImage] = useState<Blob | File | null>(null);
   const { enqueueSnackbar } = useSnackbar();
   const { register, handleSubmit } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      const res = await createNewUser(data);
+      console.log("data:", data);
+      const formData = new FormData();
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          formData.append(key, data[key]);
+        }
+      }
+      console.log(profileImage);
+      if (profileImage) formData.append("avatar", profileImage);
+      if (coverImage) formData.append("image", coverImage);
+      const res = await createNewUser(formData);
       if (res.success) {
-        enqueueSnackbar(res.message, { variant: "success" });
+        enqueueSnackbar(res.msg, { variant: "success" });
         navigate(routes.login);
       } else {
-        enqueueSnackbar(res.message, { variant: "error" });
+        enqueueSnackbar(res.msg, { variant: "error" });
       }
     } catch (error) {
       console.log(error);
@@ -26,10 +37,9 @@ const Register = () => {
     }
   };
   type FormValues = {
+    [key: string]: any;
     username: string;
     password: string;
-    avatar: any;
-    image: any;
     name: string;
     email: string;
     address: string;
@@ -191,19 +201,20 @@ const Register = () => {
                                   </svg>
                                 )}
                               </span>
-                              <span className="text-indigo-600 font-medium ml-2 cursor-pointer">
-                                Upload a file
-                              </span>
-                              <input
-                                id="file-upload"
-                                {...register("avatar")}
-                                type="file"
-                                onChange={(evt) => {
-                                  evt.target.files &&
-                                    setProfileImage(evt.target.files[0]);
-                                }}
-                                className="sr-only"
-                              />
+                              <label htmlFor="file-upload">
+                                <span className="text-indigo-600 font-medium ml-2 cursor-pointer">
+                                  Upload a file
+                                </span>
+                                <input
+                                  id="file-upload"
+                                  type="file"
+                                  onChange={(evt) => {
+                                    evt.target.files &&
+                                      setProfileImage(evt.target.files[0]);
+                                  }}
+                                  className="sr-only"
+                                />
+                              </label>
                               <p className="ml-5 text-xs text-gray-500">
                                 PNG, JPG, GIF up to 10MB
                               </p>
@@ -248,7 +259,6 @@ const Register = () => {
                               <input
                                 id="file-upload-image"
                                 type="file"
-                                {...register("image")}
                                 onChange={(evt) => {
                                   evt.target.files &&
                                     setCoverImage(evt.target.files[0]);
@@ -272,6 +282,12 @@ const Register = () => {
                       className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                       Register
+                    </button>
+                    <button
+                      onClick={getAllCharacters}
+                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                      getAllCharacters
                     </button>
                   </div>
                 </div>
