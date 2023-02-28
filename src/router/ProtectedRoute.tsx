@@ -1,16 +1,12 @@
 import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { getUserInfo } from "../api/auth";
 import routes from "./routes";
 
-type Props = {
-  rest: any;
-};
-
-const ProtectedRoute = ({ rest }: Props) => {
+const ProtectedRoute = ({ rest }: any) => {
   let location = useLocation();
-  const auth = true;
-
-  if (!auth)
+  let token = localStorage.getItem("token");
+  if (!token)
     return <Navigate to={routes.login} state={{ from: location }} replace />;
 
   return <Outlet {...rest} />;
