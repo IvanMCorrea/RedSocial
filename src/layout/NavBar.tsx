@@ -1,13 +1,11 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { useSnackbar } from "notistack";
 import { Link } from "react-router-dom";
 import { UserModel } from "../types";
 import { getUserInfo } from "../api/auth";
 import avatar from "../assets/default_avatar.png";
 
 const NavBar = () => {
-  const { enqueueSnackbar } = useSnackbar();
   const [userProfile, setUserProfile] = useState<UserModel>();
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   useEffect(() => {

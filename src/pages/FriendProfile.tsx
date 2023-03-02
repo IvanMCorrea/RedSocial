@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { UserModel } from "../types";
 import { getUserInfo } from "../api/auth";
 
-const Profile = () => {
+const FriendProfile = () => {
+  //Agregar useParams para obtener el id del usuario y crear funcion para traer el usuario
   const [user, setUser] = useState<UserModel | null>(null);
   useEffect(() => {
     getData();
@@ -37,4 +38,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default FriendProfile;
