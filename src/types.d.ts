@@ -10,3 +10,11 @@ export interface UserModel {
   address?: string;
   description?: string;
 }
+
+export interface PostModel {
+  usernameId: string;
+  image: string;
+  description?: string;
+  likes?: Array;
+  date?: string;
+}
