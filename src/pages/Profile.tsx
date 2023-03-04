@@ -13,7 +13,7 @@ const Profile = () => {
   };
   return (
     <section>
-      <article className="text-center flex flex-col items-center mx-auto border rounded-3xl mt-10 overflow-hidden font-semibold w-3/5">
+      <article className="bg-slate-50 text-center flex flex-col items-center mx-auto border rounded-3xl mt-10 overflow-hidden font-semibold w-3/5">
         {user && (
           <div className="flex mr-auto ml-5 my-5 w-4/5">
             <img

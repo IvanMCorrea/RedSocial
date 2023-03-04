@@ -15,7 +15,7 @@ const NewPost = () => {
   };
   return (
     <section>
-      <article className="text-center flex flex-col items-center mx-auto border rounded-3xl mt-10 overflow-hidden font-semibold w-3/5">
+      <article className="bg-slate-50 text-center flex flex-col items-center mx-auto border rounded-3xl mt-10 overflow-hidden font-semibold w-3/5">
         <div className="flex mr-auto ml-5 my-5 w-full">
           <div className="my-auto pl-5 text-start flex w-full">
             <p className="text w-2/12">New post</p>

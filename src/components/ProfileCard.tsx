@@ -4,7 +4,7 @@ const ProfileCard = ({ user }: any) => {
   return (
     <article
       key={user.id}
-      className="text-center flex flex-col items-center mx-auto border rounded-3xl mt-6 overflow-hidden font-semibold"
+      className="bg-slate-50 text-center flex flex-col items-center mx-auto border rounded-3xl mt-6 overflow-hidden font-semibold"
     >
       <p className="py-3">{user.name}</p>
       <img src={user.image} alt={user.name} />

@@ -9,7 +9,9 @@ const Main = () => {
   return (
     <>
       <NavBar />
-      <Outlet />
+      <section className="min-h-screen">
+        <Outlet />
+      </section>
       <Footer />
     </>
   );
