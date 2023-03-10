@@ -47,4 +47,14 @@ const getUsers = async (page, keyword) => {
   }
 };
 
-export { startLogin, createNewUser, getUserInfo, getUsers };
+const getProfileInfo = async (username) => {
+  try {
+    const { data } = await backendApi.get(`/user/profileInfo/${username}`);
+    return data;
+  } catch (error) {
+    const res = error.response.data;
+    return res;
+  }
+};
+
+export { startLogin, createNewUser, getUserInfo, getUsers, getProfileInfo };

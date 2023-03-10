@@ -12,9 +12,9 @@ const Buscador = ({ keyword, setKeyword }: any) => {
     <div className="flex my-5 justify-center">
       <form>
         <input
-          className=" rounded-2xl"
+          className=" rounded-xl w-80"
           type="text"
-          placeholder="Ingresa tu búsqueda"
+          placeholder="Type your search and press enter..."
           value={input}
           onChange={handleInput}
           onBlur={onBlur}

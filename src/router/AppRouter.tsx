@@ -8,6 +8,7 @@ import Profile from "../pages/Profile";
 import Network from "../pages/Network";
 import Register from "../pages/Register";
 import ProtectedRoute from "./ProtectedRoute";
+import FriendProfile from "../pages/FriendProfile";
 
 function AppRouter() {
   return (
@@ -20,6 +21,7 @@ function AppRouter() {
             <Route path={routes.home} element={<Home />} />
             <Route path={routes.network} element={<Network />} />
             <Route path={routes.profile} element={<Profile />} />
+            <Route path={routes.networkProfile} element={<FriendProfile />} />
           </Route>
         </Route>
       </Routes>

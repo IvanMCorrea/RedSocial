@@ -5,4 +5,5 @@ export default {
   home: "/",
   network: "/network",
   profile: "/profile",
+  networkProfile: "/network/profile/:username"
 };

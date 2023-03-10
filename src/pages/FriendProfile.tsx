@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { UserModel } from "../types";
-import { getUserInfo } from "../api/auth";
+import { getProfileInfo } from "../api/auth";
+import { useParams } from "react-router-dom";
 
 const FriendProfile = () => {
-  //Agregar useParams para obtener el id del usuario y crear funcion para traer el usuario
   const [user, setUser] = useState<UserModel | null>(null);
+  const { username } = useParams()
   useEffect(() => {
     getData();
   }, []);
   const getData = async () => {
-    const data = await getUserInfo();
+    const data = await getProfileInfo(username);
+    console.log(data)
     setUser(data.user);
   };
   return (
     <section>
-      <article className="text-center flex flex-col items-center mx-auto border rounded-3xl mt-10 overflow-hidden font-semibold w-3/5">
+      <article className="bg-slate-50 text-center flex flex-col items-center mx-auto border rounded-3xl mt-10 overflow-hidden font-semibold w-3/5">
         {user && (
           <div className="flex mr-auto ml-5 my-5 w-4/5">
             <img

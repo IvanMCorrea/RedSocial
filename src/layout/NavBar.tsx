@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { UserModel } from "../types";
 import { getUserInfo } from "../api/auth";
 import avatar from "../assets/default_avatar.png";
+import routes from "../router/routes";
 
 const NavBar = () => {
   const [userProfile, setUserProfile] = useState<UserModel>();
@@ -22,7 +23,7 @@ const NavBar = () => {
   };
   const navigation = [
     { name: "Home", href: "/", current: true },
-    { name: "Friends?", href: "/network", current: false },
+    { name: "Network", href: "/network", current: false },
   ];
   function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(" ");
@@ -54,13 +55,8 @@ const NavBar = () => {
                     <Link
                       to={item.href}
                       key={item.name}
-                      className={classNames(
-                        item.current
-                          ? "bg-gray-900 text-white"
-                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                        "px-3 py-2 rounded-md text-sm font-medium"
-                      )}
-                      aria-current={item.current ? "page" : undefined}
+                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+
                     >
                       {item.name}
                     </Link>
@@ -102,7 +98,7 @@ const NavBar = () => {
                     <Menu.Item>
                       {({ active }) => (
                         <Link
-                          to={"/profile"}
+                          to={routes.profile}
                           className={classNames(
                             active ? "bg-gray-100" : "",
                             "block px-4 py-2 text-sm text-gray-700"
@@ -115,7 +111,7 @@ const NavBar = () => {
                     <Menu.Item>
                       {({ active }) => (
                         <Link
-                          to={"/login"}
+                          to={routes.login}
                           className={classNames(
                             active ? "bg-gray-100" : "",
                             "block px-4 py-2 text-sm text-gray-700"
@@ -145,7 +141,6 @@ const NavBar = () => {
                   : "text-gray-300 hover:bg-gray-700 hover:text-white",
                 "block px-3 py-2 rounded-md text-base font-medium"
               )}
-              aria-current={item.current ? "page" : undefined}
             >
               {item.name}
             </Disclosure.Button>
