@@ -1,7 +1,9 @@
+import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { createPost } from "../api/post";
 
 const NewPost = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const [description, setDescription] = useState<string>("");
   const [img, setImg] = useState<Blob | null>(null);
   const handleSubmit = async (e: any) => {
@@ -9,9 +11,13 @@ const NewPost = () => {
     const formData = new FormData();
     formData.append("data", description);
     if (img) formData.append("image", img);
-    console.log(description);
-    /* const res = await createPost();
-    console.log(res); */
+    const res = await createPost(formData);
+    if (res.success) {
+      enqueueSnackbar(res.msg, { variant: "success" });
+    } else {
+      enqueueSnackbar(res.msg, { variant: "error" });
+    }
+    console.log(res);
   };
   return (
     <section>
