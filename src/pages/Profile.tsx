@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { UserModel } from "../types";
+import { PostModel, UserModel } from "../types";
 import { getUserInfo } from "../api/auth";
+import { getUserPosts } from "../api/post";
+import Post from "../components/Post";
 
 const Profile = () => {
   const [user, setUser] = useState<UserModel | null>(null);
+  const [posts, setPosts] = useState<Array<PostModel>>([]);
   useEffect(() => {
     getData();
   }, []);
   const getData = async () => {
     const data = await getUserInfo();
+    const res = await getUserPosts(data.user._id);
     setUser(data.user);
+    setPosts(res.data);
   };
   return (
     <section>
-      <article className="bg-slate-50 text-center flex flex-col items-center mx-auto border rounded-3xl mt-10 overflow-hidden font-semibold w-3/5">
+      <article className="bg-slate-50 text-center flex flex-col items-center mx-auto border rounded-3xl mt-10 overflow-hidden font-semibold w-3/5 mb-5">
         {user && (
           <div className="flex mr-auto ml-5 my-5 w-4/5">
             <img
@@ -33,6 +38,9 @@ const Profile = () => {
           </div>
         )}
       </article>
+      <section>
+        {posts && posts[0] && posts.map((post) => <Post post={post} />)}
+      </section>
     </section>
   );
 };

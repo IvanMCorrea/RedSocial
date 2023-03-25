@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { UserModel } from "../types";
+import { PostModel, UserModel } from "../types";
 import { getProfileInfo } from "../api/auth";
 import { useParams } from "react-router-dom";
+import { getUserPosts } from "../api/post";
+import Post from "../components/Post";
 
 const FriendProfile = () => {
   const [user, setUser] = useState<UserModel | null>(null);
-  const { username } = useParams()
+  const [posts, setPosts] = useState<Array<PostModel>>([]);
+  const { username } = useParams();
+
+  const getData = async () => {
+    const data = await getProfileInfo(username);
+    const res = await getUserPosts(data.user._id);
+    console.log(data);
+    setUser(data.user);
+    setPosts(res.data);
+  };
+
   useEffect(() => {
     getData();
   }, []);
-  const getData = async () => {
-    const data = await getProfileInfo(username);
-    console.log(data)
-    setUser(data.user);
-  };
+
   return (
     <section>
       <article className="bg-slate-50 text-center flex flex-col items-center mx-auto border rounded-3xl mt-10 overflow-hidden font-semibold w-3/5">
@@ -36,6 +44,9 @@ const FriendProfile = () => {
           </div>
         )}
       </article>
+      <section>
+        {posts && posts[0] && posts.map((post) => <Post post={post} />)}
+      </section>
     </section>
   );
 };
