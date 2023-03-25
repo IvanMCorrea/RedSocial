@@ -12,10 +12,13 @@ const FriendProfile = () => {
 
   const getData = async () => {
     const data = await getProfileInfo(username);
-    const res = await getUserPosts(data.user._id);
-    console.log(data);
-    setUser(data.user);
-    setPosts(res.data);
+    if (data.success) {
+      const res = await getUserPosts(data.user._id);
+      setUser(data.user);
+      if (res.success) {
+        setPosts(res.data);
+      }
+    }
   };
 
   useEffect(() => {
@@ -45,7 +48,9 @@ const FriendProfile = () => {
         )}
       </article>
       <section>
-        {posts && posts[0] && posts.map((post) => <Post post={post} />)}
+        {posts &&
+          posts[0] &&
+          posts.map((post, index) => <Post post={post} key={index} />)}
       </section>
     </section>
   );

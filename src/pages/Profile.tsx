@@ -12,9 +12,13 @@ const Profile = () => {
   }, []);
   const getData = async () => {
     const data = await getUserInfo();
-    const res = await getUserPosts(data.user._id);
-    setUser(data.user);
-    setPosts(res.data);
+    if (data.success) {
+      setUser(data.user);
+      const res = await getUserPosts(data.user._id);
+      if (res.success) {
+        setPosts(res.data);
+      }
+    }
   };
   return (
     <section>
@@ -39,7 +43,9 @@ const Profile = () => {
         )}
       </article>
       <section>
-        {posts && posts[0] && posts.map((post) => <Post post={post} />)}
+        {posts &&
+          posts[0] &&
+          posts.map((post, index) => <Post post={post} key={index} />)}
       </section>
     </section>
   );
