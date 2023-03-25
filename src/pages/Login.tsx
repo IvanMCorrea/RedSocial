@@ -36,14 +36,14 @@ const Login = () => {
             src="assets/logo.png"
             alt="Workflow"
           />
-          <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-slate-200">
             Sign in
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-2 text-center text-sm text-gray-300">
             or{" "}
             <Link
               to={routes.register}
-              className="font-medium text-indigo-600 hover:text-indigo-500"
+              className="font-medium text-lime-500 hover:text-lime-300"
             >
               create new account
             </Link>
@@ -89,11 +89,12 @@ const Login = () => {
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                defaultChecked
+                className="h-4 w-4 text-lime-600 focus:ring-0 focus:ring-offset-0 border-gray-300 rounded"
               />
               <label
                 htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-900"
+                className="ml-2 block text-sm text-gray-300"
               >
                 Remember me
               </label>
@@ -101,7 +102,7 @@ const Login = () => {
             <div className="text-sm">
               <Link
                 to={""}
-                className="font-medium text-indigo-600 hover:text-indigo-500"
+                className="font-medium text-lime-500 hover:text-lime-300"
               >
                 Forgot your password?
               </Link>
@@ -110,7 +111,7 @@ const Login = () => {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-semibold rounded-md text-indigo-800 hover:text-indigo-500 bg-lime-500 hover:bg-lime-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Login
             </button>

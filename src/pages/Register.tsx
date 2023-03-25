@@ -54,14 +54,14 @@ const Register = () => {
             src="assets/logo.png"
             alt="Workflow"
           />
-          <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-slate-200">
             Register
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-2 text-center text-sm text-gray-300">
             Already have an account?{" "}
             <Link
               to={routes.login}
-              className="font-medium text-indigo-600 hover:text-indigo-500"
+              className="font-medium text-lime-500 hover:text-lime-300"
             >
               Sign in
             </Link>
