@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { UserModel } from "../types";
-import { getNetwork } from "../services/db";
 import Pagination from "../components/Pagination";
 import ProfileCard from "../components/ProfileCard";
 import Buscador from "../components/Buscador";
-import { getStorage } from "../services/storage";
 import { getUsers } from "../api/auth";
 
 const Network = () => {
-  let pageSize = 20;
   const [keyword, setKeyword] = useState("");
   const [loading, setLoading] = useState(false);
   const [pageNumber, updatePageNumber] = useState(1);
@@ -20,7 +17,6 @@ const Network = () => {
   }, [pageNumber, keyword]);
   const getUserNetwork = async () => {
     const res = await getUsers(pageNumber, keyword);
-    console.log(res);
     if (res.success) {
       setNetwork(res.data);
       setTotalPages(res.totalPages);

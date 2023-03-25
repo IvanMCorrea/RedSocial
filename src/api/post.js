@@ -9,5 +9,24 @@ const createPost = async (payload) => {
     return res;
   }
 };
+const getAllPosts = async () => {
+  try {
+    const { data } = await backendApi.get("/post");
+    return data;
+  } catch (err) {
+    const res = err.response.data;
+    return res;
+  }
+};
 
-export { createPost };
+const getUserPosts = async (id) => {
+  try {
+    const { data } = await backendApi.get(`/post/${id}`);
+    return data;
+  } catch (err) {
+    const res = err.response.data;
+    return res;
+  }
+};
+
+export { createPost, getAllPosts, getUserPosts };
