@@ -3,7 +3,6 @@ import { getAllPosts } from "../api/post";
 import NewPost from "../components/NewPost";
 import Pagination from "../components/Pagination";
 import Post from "../components/Post";
-import Posts from "../components/Post";
 import { PostModel } from "../types";
 
 const Home = () => {
@@ -13,8 +12,7 @@ const Home = () => {
   useMemo(async () => {
     const res = await getAllPosts();
     if (res.success) {
-      console.log(res);
-      setPosts(res.data);
+      setPosts(res.data.reverse());
       setTotalPages(res.totalPages);
     }
   }, [pageNumber]);
