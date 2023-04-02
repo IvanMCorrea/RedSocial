@@ -11,10 +11,7 @@ const Network = () => {
   const [pageNumber, updatePageNumber] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [network, setNetwork] = useState<Array<UserModel>>([]);
-  useEffect(() => {
-    setLoading(true);
-    getUserNetwork();
-  }, [pageNumber, keyword]);
+  
   const getUserNetwork = async () => {
     const res = await getUsers(pageNumber, keyword);
     if (res.success) {
@@ -23,6 +20,13 @@ const Network = () => {
     }
     setLoading(false);
   };
+
+  useEffect(() => {
+    setLoading(true);
+    getUserNetwork();
+  }, [pageNumber, keyword]);
+
+  
   return (
     <>
       {loading ? (

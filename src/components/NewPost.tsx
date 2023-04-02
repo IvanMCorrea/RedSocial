@@ -37,7 +37,7 @@ const NewPost = ({ setPosts, posts }:any) => {
               <div className="flex flex-col items-center text-sm text-gray-600">
                 {img ? (
                   <span className="w-80 h-80 overflow-hidden rounded bg-gray-100">
-                    <img src={URL.createObjectURL(img)} alt="profile image" />
+                    <img src={URL.createObjectURL(img)} alt="profile" />
                   </span>
                 ) : null}
                 <label htmlFor="file-upload">

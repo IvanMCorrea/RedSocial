@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { createNewUser, startLogin } from "../api/auth";
+import { createNewUser } from "../api/auth";
 import { useSnackbar } from "notistack";
 import routes from "../router/routes";
 import { getAllCharacters } from "../services/getCharacters";
@@ -12,6 +12,7 @@ const Register = () => {
   const [profileImage, setProfileImage] = useState<Blob | File | null>(null);
   const { enqueueSnackbar } = useSnackbar();
   const { register, handleSubmit } = useForm<FormValues>();
+
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       console.log("data:", data);
@@ -36,6 +37,7 @@ const Register = () => {
       enqueueSnackbar("Error al procesar datos", { variant: "error" });
     }
   };
+
   type FormValues = {
     [key: string]: any;
     username: string;
@@ -189,7 +191,7 @@ const Register = () => {
                                 {profileImage ? (
                                   <img
                                     src={URL.createObjectURL(profileImage)}
-                                    alt="profile image"
+                                    alt="profile"
                                   />
                                 ) : (
                                   <svg
@@ -231,7 +233,7 @@ const Register = () => {
                       {coverImage && (
                         <img
                           src={URL.createObjectURL(coverImage)}
-                          alt="cover image"
+                          alt="cover"
                         />
                       )}
                       <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">

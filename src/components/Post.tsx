@@ -21,7 +21,7 @@ const Post = ({ post, userId, handleLike }: any) => {
         {post.image && (
           <img
             src={post.image}
-            alt={`Post image`}
+            alt={`Post`}
             className="w-full rounded-3xl"
           />
         )}

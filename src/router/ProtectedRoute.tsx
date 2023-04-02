@@ -1,6 +1,5 @@
 import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { getUserInfo } from "../api/auth";
 import routes from "./routes";
 
 const ProtectedRoute = ({ rest }: any) => {
