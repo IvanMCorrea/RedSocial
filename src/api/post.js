@@ -9,9 +9,10 @@ const createPost = async (payload) => {
     return res;
   }
 };
-const getAllPosts = async () => {
+
+const getAllPosts = async (page) => {
   try {
-    const { data } = await backendApi.get("/post");
+    const { data } = await backendApi.get(`/post/${page}`);
     return data;
   } catch (err) {
     const res = err.response.data;
@@ -21,7 +22,7 @@ const getAllPosts = async () => {
 
 const getUserPosts = async (id) => {
   try {
-    const { data } = await backendApi.get(`/post/${id}`);
+    const { data } = await backendApi.get(`/post/userPosts/${id}`);
     return data;
   } catch (err) {
     const res = err.response.data;
@@ -29,4 +30,14 @@ const getUserPosts = async (id) => {
   }
 };
 
-export { createPost, getAllPosts, getUserPosts };
+const updateLike = async (postId, userId) => {
+  try {
+    const { data } = await backendApi.put("/post/updateLikes", {data: { postId, userId }});
+    return data;
+  } catch (err) {
+    const res = err.response.data;
+    return res;
+  }
+}
+
+export { createPost, getAllPosts, getUserPosts, updateLike };

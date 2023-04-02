@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from "react";
-import { getAllPosts } from "../api/post";
+import React, { useMemo, useState, useEffect } from "react";
+import { getAllPosts, updateLike } from "../api/post";
 import NewPost from "../components/NewPost";
 import Pagination from "../components/Pagination";
 import Post from "../components/Post";
@@ -13,33 +13,41 @@ const Home = () => {
   const [userId, setUserId] = useState<String>("");
 
   useMemo(async () => {
-    const res = await getAllPosts();
+    const res = await getAllPosts(pageNumber);
     if (res.success) {
-      setPosts(res.data.reverse());
+      setPosts(res.data);
       setTotalPages(res.totalPages);
-    }
-    const response = await getUserInfo()
-    if (response.success) {
-      setUserId(response.data._id);
     }
   }, [pageNumber]);
 
-  useMemo(async () => {
+  useEffect(() => {
+    getUserId()
+  }, [])
+
+  const getUserId = async () => {
     const response = await getUserInfo()
     if (response.success) {
-      setUserId(response.data._id);
+      setUserId(response.user._id);
     }
-  }, []);
+  }
+  
 
-  const handleLike = async () =>{
-
+  const handleLike = async ( postId:string ) =>{
+    const response = await updateLike(postId, userId)
+    if (response.success) {
+      const res = await getAllPosts(pageNumber);
+      if (res.success) {
+        setPosts(res.data);
+        setTotalPages(res.totalPages);
+      }
+    }
   }
   return (
     <>
       <NewPost setPosts={setPosts} posts={posts}/>
       {posts &&
         posts[0] &&
-        posts.map((post, index) => <Post key={index} post={post} userId={userId}/>)}
+        posts.map((post, index) => <Post key={index} post={post} userId={userId} handleLike={handleLike}/>)}
       <Pagination
         pageNumber={pageNumber}
         totalPages={totalPages}
