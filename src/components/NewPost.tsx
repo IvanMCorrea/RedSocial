@@ -2,7 +2,7 @@ import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { createPost } from "../api/post";
 
-const NewPost = () => {
+const NewPost = ({ setPosts, posts }:any) => {
   const { enqueueSnackbar } = useSnackbar();
   const [description, setDescription] = useState<string>("");
   const [img, setImg] = useState<Blob | null>(null);
@@ -17,7 +17,6 @@ const NewPost = () => {
     } else {
       enqueueSnackbar(res.msg, { variant: "error" });
     }
-    console.log(res);
   };
   return (
     <section>
