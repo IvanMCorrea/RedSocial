@@ -30,16 +30,18 @@ const Post = ({ post, userId, handleLike }: any) => {
         <div className="group relative flex">
           <p className="w-full cursor-pointer">Likes: <span className="font-semibold">{post.likes.length}</span></p>
           {post.likes && post.likes[0] &&
-          <span className="absolute top-10 scale-0 transition-all rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{post.likes.map((like:UserModel)=>(
-            <div className="flex items-center">
-              <img
-                  className="h-6 w-6 rounded-full mr-2"
-                  src={like.avatar}
-                  alt="avatar as profile button"
-              />
-              <h3>{like.name}</h3>
-            </div>
-          ))}</span>
+          <span className="absolute top-10 scale-0 transition-all rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">
+            {post.likes.map((like:UserModel)=>(
+              <div className="flex items-center">
+                <img
+                    className="h-6 w-6 rounded-full mr-2"
+                    src={like.avatar}
+                    alt="avatar as profile button"
+                />
+                <h3>{like.name}</h3>
+              </div>
+            ))}
+          </span>
           }
           </div>
         <div className="w-full text-center mt-3">
