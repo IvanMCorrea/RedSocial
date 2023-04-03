@@ -13,7 +13,7 @@ const Home = () => {
   const [userId, setUserId] = useState<String>("");
 
   useMemo(async () => {
-    getPosts()
+    await getPosts()
   }, [pageNumber]);
 
   const getPosts = async () => {
