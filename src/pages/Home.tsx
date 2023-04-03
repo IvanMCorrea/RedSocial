@@ -12,10 +12,6 @@ const Home = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [userId, setUserId] = useState<String>("");
 
-  useMemo(async () => {
-    await getPosts()
-  }, [pageNumber]);
-
   const getPosts = async () => {
     const res = await getAllPosts(pageNumber);
     if (res.success) {
@@ -24,6 +20,10 @@ const Home = () => {
     }
   }
 
+  useEffect(() => {
+    getPosts()
+  }, [pageNumber]);
+  
   useEffect(() => {
     getUserId()
   }, [])
