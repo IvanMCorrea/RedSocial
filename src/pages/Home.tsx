@@ -13,12 +13,16 @@ const Home = () => {
   const [userId, setUserId] = useState<String>("");
 
   useMemo(async () => {
+    getPosts()
+  }, [pageNumber]);
+
+  const getPosts = async () => {
     const res = await getAllPosts(pageNumber);
     if (res.success) {
       setPosts(res.data);
       setTotalPages(res.totalPages);
     }
-  }, [pageNumber]);
+  }
 
   useEffect(() => {
     getUserId()
@@ -44,7 +48,7 @@ const Home = () => {
   }
   return (
     <>
-      <NewPost setPosts={setPosts} posts={posts}/>
+      <NewPost getPosts={getPosts}/>
       {posts &&
         posts[0] &&
         posts.map((post, index) => <Post key={index} post={post} userId={userId} handleLike={handleLike}/>)}

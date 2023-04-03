@@ -2,7 +2,7 @@ import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { createPost } from "../api/post";
 
-const NewPost = ({ setPosts, posts }:any) => {
+const NewPost = ({ getPosts }:any) => {
   const { enqueueSnackbar } = useSnackbar();
   const [description, setDescription] = useState<string>("");
   const [img, setImg] = useState<Blob | null>(null);
@@ -14,6 +14,7 @@ const NewPost = ({ setPosts, posts }:any) => {
     const res = await createPost(formData);
     if (res.success) {
       enqueueSnackbar(res.msg, { variant: "success" });
+      await getPosts()
     } else {
       enqueueSnackbar(res.msg, { variant: "error" });
     }
