@@ -18,8 +18,8 @@ function AppRouter() {
         <Route path={routes.login} element={<Login />} />
         <Route path={routes.register} element={<Register />} />
         <Route element={<ProtectedRoute />}>
-          <Route path={routes.seeder} element={<Seed />} />
           <Route path={routes.home} element={<Main />}>
+            <Route path={routes.seeder} element={<Seed />} />
             <Route path={routes.home} element={<Home />} />
             <Route path={routes.network} element={<Network />} />
             <Route path={routes.profile} element={<Profile />} />
