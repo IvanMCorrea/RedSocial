@@ -2,7 +2,7 @@ import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { createPost } from "../api/post";
 
-const NewPost = ({ getPosts }:any) => {
+const NewPost = ({ getPosts }: any) => {
   const { enqueueSnackbar } = useSnackbar();
   const [description, setDescription] = useState<string>("");
   const [img, setImg] = useState<Blob | null>(null);
@@ -14,18 +14,18 @@ const NewPost = ({ getPosts }:any) => {
     const res = await createPost(formData);
     if (res.success) {
       enqueueSnackbar(res.msg, { variant: "success" });
-      await getPosts()
+      await getPosts();
     } else {
       enqueueSnackbar(res.msg, { variant: "error" });
     }
   };
   return (
     <section>
-      <article className="bg-slate-50 text-center flex flex-col items-center mx-auto border rounded-3xl mt-10 overflow-hidden font-semibold w-3/5">
+      <article className="bg-slate-50 text-center flex flex-col md:flex-row items-center mx-auto border rounded-3xl mt-10 overflow-hidden font-semibold w-3/5  max-w-[48rem]">
         <div className="flex mr-auto ml-5 my-5 w-full">
-          <div className="my-auto pl-5 text-start flex w-full">
+          <div className="my-auto text-start flex w-full flex-col md:flex-row gap-5 md:gap-0">
             <p className="text w-2/12">New post</p>
-            <div className="w-7/12 mx-3 px-3">
+            <div className="w-10/12 md:w-7/12 mx-3 px-1">
               <div className="w-full flex items-center mb-2">
                 <textarea
                   id="description"
@@ -54,10 +54,10 @@ const NewPost = ({ getPosts }:any) => {
                     className="sr-only"
                   />
                 </label>
-                <p className="ml-5 text-xs text-gray-500">
+                <p className="ml-5 text-xs text-gray-500 hidden md:inline">
                   PNG, JPG, GIF up to 10MB
                 </p>
-                <p className="ml-5 text-xs text-gray-500">
+                <p className="ml-5 text-xs text-gray-500 hidden md:inline">
                   (Recommended 1000px x 1000px)
                 </p>
               </div>
@@ -65,7 +65,7 @@ const NewPost = ({ getPosts }:any) => {
             <button
               type="submit"
               onClick={handleSubmit}
-              className="w-2/12 h-12 px-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="w-10/12 md:w-2/12 h-12 px-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Post {" >>"}
             </button>
