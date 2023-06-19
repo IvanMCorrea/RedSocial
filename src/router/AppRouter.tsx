@@ -9,6 +9,7 @@ import Network from "../pages/Network";
 import Register from "../pages/Register";
 import ProtectedRoute from "./ProtectedRoute";
 import FriendProfile from "../pages/FriendProfile";
+import Seed from "../pages/Seed";
 
 function AppRouter() {
   return (
@@ -17,6 +18,7 @@ function AppRouter() {
         <Route path={routes.login} element={<Login />} />
         <Route path={routes.register} element={<Register />} />
         <Route element={<ProtectedRoute />}>
+          <Route path={routes.seeder} element={<Seed />} />
           <Route path={routes.home} element={<Main />}>
             <Route path={routes.home} element={<Home />} />
             <Route path={routes.network} element={<Network />} />

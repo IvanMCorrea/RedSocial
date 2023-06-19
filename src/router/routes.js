@@ -5,5 +5,6 @@ export default {
   home: "/",
   network: "/network",
   profile: "/profile",
-  networkProfile: "/network/profile/:username"
+  networkProfile: "/network/profile/:username",
+  seeder: process.env.REACT_APP_SEEDER_ROUTE,
 };
